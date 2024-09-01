@@ -1,9 +1,8 @@
 'use strict';
 
 const path = require('path');
-
 module.exports = {
-  config: path.resolve(path.join(process.cwd(), 'src/models'), 'models'),
+  config: path.resolve(path.join(process.cwd(), 'src/config'), 'config.json'),
   'seeders-path': path.resolve(path.join(process.cwd(), 'src'), 'seeders'),
   'migrations-path': path.resolve(path.join(process.cwd(), 'src'), 'migrations'),
 };
