@@ -27,4 +27,70 @@ export default class UserRepo extends BaseRepository<Users> {
       throw new Error("Unable to create user");
     }
   };
+
+  // Get All Users
+  readonly getAllUsers = async () => {
+    try {
+      const users = await Users.findAll();
+      return users;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw new Error("Unable to fetch users");
+    }
+  };
+
+  // Update User Api
+  readonly updateUser = async (id: string, body: {
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    password?: string;
+  }) => {
+    try {
+      const data = await Users.findOne({
+        where:{
+          id,
+        }
+      })
+      if(data){
+        const [updated] = await Users.update(body, {
+          where: {
+            id,
+          }
+        })
+      }
+      else{
+        console.error("No User Exist");
+      }
+     
+    }
+    catch (error) {
+      console.error("Error updating user:", error);
+      throw new Error("Unable to update user");
+    }
+  }
+
+   // Delete Users
+   readonly deleteUser = async (id:string) => {
+    try {
+     const data = await Users.findOne({
+      where:{
+        id
+      }
+     })
+     if(data){
+      const deletedRecord = await Users.destroy({
+        where:{
+          id
+        }
+      }) 
+     }
+     else{
+      console.error("No User Exist");
+     }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw new Error("Unable to fetch users");
+    }
+  };
 }

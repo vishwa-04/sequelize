@@ -14,10 +14,31 @@ export class UserRoute implements Routes{
         this.initializeRoutes();
     }
     private initializeRoutes() {
-        // create academy
+        // create users
         this.router.post(
           this.path,
           this.userController.createUser,
         )  
+
+        // get all users
+        this.router.get(
+          this.path,
+          this.userController.getAllUsers,
+        )  
+
+        // update user
+        this.router.put(
+          `${this.path}/:id`,
+          this.userController.updateUser,
+        )  
+
+        // delete user
+        this.router.delete(
+          `${this.path}/:id`,
+          this.userController.deleteUser
+        )
+
       }
+
+      
 }
