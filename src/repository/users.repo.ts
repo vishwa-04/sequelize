@@ -1,4 +1,5 @@
 import BaseRepository from "@/common/helpers/base.repository";
+import { hashPassword } from "@/common/helpers/passwordHashing";
 import Users from "@/models/user.models";
 
 export default class UserRepo extends BaseRepository<Users> {
@@ -14,11 +15,12 @@ export default class UserRepo extends BaseRepository<Users> {
     password: string;
   }) => {
     try {
+      const securePassword = await hashPassword(body.password)
       const newUser = await Users.create({
         first_name: body.first_name,
         last_name: body.last_name,
         email: body.email,
-        password: body.password,
+        password:securePassword,
       });
 
       return newUser;
